@@ -1,0 +1,144 @@
+{
+  "name": "aegis-security-scanner",
+  "displayName": "Aegis Security Scanner",
+  "description": "Free, open-source security scanner for Python, JavaScript, C/C++, Dockerfiles, Terraform, Kubernetes, and more. Find vulnerabilities before they reach production.",
+  "version": "1.1.0",
+  "publisher": "aegis-security",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mohawk-RyanKilgore/aegis-security-scanner.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Linters",
+    "Other"
+  ],
+  "keywords": [
+    "security",
+    "scanner",
+    "sast",
+    "vulnerability",
+    "python",
+    "javascript",
+    "terraform",
+    "kubernetes",
+    "docker",
+    "secrets",
+    "xss",
+    "sql-injection"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "aegis.scanWorkspace",
+        "title": "Aegis: Scan Workspace",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "aegis.scanCurrentFile",
+        "title": "Aegis: Scan Current File",
+        "icon": "$(file-code)"
+      },
+      {
+        "command": "aegis.scanFolder",
+        "title": "Aegis: Scan Folder",
+        "icon": "$(folder)"
+      },
+      {
+        "command": "aegis.generatePdfReport",
+        "title": "Aegis: Generate PDF Report",
+        "icon": "$(file-pdf)"
+      },
+      {
+        "command": "aegis.clearDiagnostics",
+        "title": "Aegis: Clear All Issues",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "aegis.setupWizard",
+        "title": "Aegis: Setup Wizard",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "aegis.installDependencies",
+        "title": "Aegis: Install Dependencies",
+        "icon": "$(package)"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "aegis.scanFolder",
+          "group": "aegis",
+          "when": "explorerResourceIsFolder"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "aegis.scanCurrentFile",
+          "group": "aegis"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Aegis Security Scanner",
+      "properties": {
+        "aegis.pythonPath": {
+          "type": "string",
+          "default": "python",
+          "description": "Path to Python executable"
+        },
+        "aegis.scannerPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to aegis.py (leave empty to use bundled scanner)"
+        },
+        "aegis.autoScanOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically scan files when saved"
+        },
+        "aegis.scanGitHistory": {
+          "type": "boolean",
+          "default": false,
+          "description": "Include git history scan for leaked secrets (slower)"
+        },
+        "aegis.showFixSuggestions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show fix suggestions in diagnostics"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "aegis.scanCurrentFile",
+        "key": "ctrl+shift+a",
+        "mac": "cmd+shift+a",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "echo 'No compilation needed'",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@vscode/vsce": "^2.32.0"
+  },
+  "author": "",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Mohawk-RyanKilgore/aegis-security-scanner/issues"
+  },
+  "homepage": "https://github.com/Mohawk-RyanKilgore/aegis-security-scanner#readme"
+}
